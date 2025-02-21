@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Input Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+        }
+
+        .row-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .column {
+            flex: 1;
+            min-width: 300px;  
+            margin: 5px;
+        }
+
+        .button {
+            background-color: #525452;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #434343;
+        }
+
+        input, select {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #map {
+            height: 300px;
+            width: 100%;
+            background-color: #eaeaea;
+            border-radius: 8px;
+        }
+
+        .payment-method {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .custom-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            background-color: #fff;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .custom-radio::after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: grey;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .radio-option input[type="radio"]:checked + .custom-radio::after {
+            opacity: 1;
+        }
+
+        .radio-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .submit-button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Include Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="form-container">
+        <div class="row-container">
+            <div class="column">
+                <h3>First Name:</h3>
+                <input type="text" id="firstName" placeholder="Enter your First Name">
+                <h3>Last Name:</h3>
+                <input type="text" id="lastName" placeholder="Enter your Last Name">
+                <h3>ID Number:</h3>
+                <input type="text" id="idNumber" placeholder="Enter your ID Number">
+                <h3>Email:</h3>
+                <input type="email" id="email" placeholder="Enter your Email">
+                <h3>Mobile Number:</h3>
+                <input type="tel" id="mobileNumber" placeholder="Enter your Mobile Number">
+            </div>
+
+            <div class="column">
+                <h3>Country:</h3>
+                <select id="countrySelect">
+                    <option value="">Select your Country</option>
+                    <option value="united_states">United States</option>
+                    <option value="united_kingdom">United Kingdom</option>
+                    <option value="saudi_arabia">Saudi Arabia</option>
+                    <option value="china">China</option>
+                </select>
+                <h3>City:</h3>
+                <input type="text" id="city" placeholder="Enter your City">
+        </div> <!--country column-->
+
+            <div class="column">
+                <h3>National Address:</h3>
+                <input type="text" id="Address" placeholder="Search for your location">
+                
+                <h3>Neighborhood Name:</h3>
+                <input type="text" id="Neighborhood" placeholder="Enter your Hood">
+
+                <!-- New Fields for Street Name and Building Number -->
+                <h3>Street Name:</h3>
+                <input type="text" id="streetName" placeholder="Enter your Street Name">
+                <h3>Building Number:</h3>
+                <input type="text" id="buildingNumber" placeholder="Enter your Building Number">
+
+                <h3>Select Location:</h3>
+                <div id="map"></div>
+            
+                <!-- Submit button -->
+                <div class="submit-button-container">
+                    <button class="button" onclick="submitForm()">Submit</button>   
+                </div>
+
+            </div>
+
+    </div>
+</div>
+
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    var userLocation; //hold user-selected location
+
+    // Load and display tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Marker
+    var marker = L.marker([51.505, -0.09]).addTo(map)
+        .bindPopup('You are here!')
+        .openPopup();
+
+    // Event to allow user to click on the map to set the marker location
+    map.on('click', function(e) {
+        const latLng = e.latlng;
+        marker.setLatLng(latLng);
+        marker.bindPopup('You selected this location: ' + latLng.toString()).openPopup();
+        userLocation = latLng;
+    });
+
+    // Update map view based on selected country
+    document.getElementById("countrySelect").addEventListener("change", function() {
+        const selectedCountry = this.value;
+
+        
+        let lat, lng;
+
+        switch (selectedCountry) {
+            case 'united_states':
+                lat = 37.0902;
+                lng = -95.7129;
+                break;
+            case 'united_kingdom':
+                lat = 55.3781;
+                lng = -3.4360;
+                break;
+            case 'saudi_arabia':
+                lat = 23.8859;
+                lng = 45.0792;
+                break;
+            case 'china':
+                lat = 35.8617;
+                lng = 104.1954;
+                break;
+            default:
+                return; // Do nothing if no country is selected
+        }
+
+        map.setView([lat, lng], 5);
+    });
+
+
+    let fileCounter = 0; // A counter to keep track of the number of files downloaded
+
+
+    function submitForm() {
+        window.location.href = 'scenarios.html';
+        console.log({
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            idNumber: document.getElementById('idNumber').value,
+            email: document.getElementById('email').value,
+            mobileNumber: document.getElementById('mobileNumber').value,
+            country: document.getElementById('countrySelect').value,
+            city: document.getElementById('city').value,
+            deliveryDate: document.getElementById('deliveryDate').value,
+            deliveryTime: document.getElementById('deliveryTime').value,
+            paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+            creditCardNumber: document.getElementById('creditCardNumber').value,
+            expirationDate: document.getElementById('expirationDate').value,
+            zipCode: document.getElementById('zipCode').value,
+            locationSearch: document.getElementById('locationSearch').value,
+            streetName: document.getElementById('streetName').value,
+            buildingNumber: document.getElementById('buildingNumber').value,
+            hood: document.getElementById('hood').value,
+            userLocation: userLocation // Save the user selected location in the form submission
+        });
+        
+    }
+</script>
+
+</body>
+</html>

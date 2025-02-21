@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agreement Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #eaeaea;
+            color: #525452;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        button {
+            background-color: #525452;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #434343;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #eaeaea;
+            color: #525452;
+            width: 100%;
+            position: relative;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>consent to participate<br>الموافقة على المشاركة</h1>
+</header>
+
+<div class="main">
+    <div>
+        <h2>Are you agree to be involved in the experiment?<br>
+        هل توافق على المشاركة في التجربة؟</h2>
+        <button onclick="location.href='language.html';">Yes / نعم</button>
+        <button onclick="location.href='disagree.html';">No / لا</button>
+    </div>
+</div>
+
+<footer>
+    <p>Research project experiment.<br>تجربة لمشروع بحثي</p>
+</footer>
+
+</body>
+</html>

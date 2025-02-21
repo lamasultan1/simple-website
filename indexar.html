@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>التسجيل بالنشاط</h1>
+        <p>حدد الحدث الذي تريد التسجيل فيه</p>
+    </header>
+    <main>
+        <div class="event-container">
+            <div class="event" id="sports">
+                <h2>الأنشطة الرياضية</h2>
+                <div class="image-container">
+                    <img src="sport.avif" alt="Sports Events" />
+                </div>
+                <p>انضم إلى الأحداث الرياضية بما في ذلك كرة القدم وكرة السلة والتنس</p>
+                <button onclick="redirectToRegistration()">التسجيل</button>
+            </div>
+            <div class="event" id="study">
+                <h2>مجموعات الدراسة</h2>
+                <div class="image-container">
+                    <img src="study.avif" alt="Study Groups" />
+                </div>
+                <p>المشاركة في مجموعات دراسية لمختلف المواد وتحسين معرفتك</p>
+                <button onclick="redirectToRegistration()">التسجيل</button>
+            </div>
+            <div class="event" id="reading">
+                <h2>نادي القراءة</h2>
+                <div class="image-container">
+                    <img src="reading.jpg" alt="Reading Club" />
+                </div>
+                <p>انضم إلى نادي القراءة لدينا وناقش كتبك وأنواعك المفضلة</p>
+                <button onclick="redirectToRegistration()">التسجيل</button>
+            </div>
+            <div class="event" id="trips">
+                <h2>الرحلات</h2>
+                <div class="image-container">
+                    <img src="trips.avif" alt="Trips" />
+                </div>
+                <p>اكتشف أماكن وثقافات جديدة من خلال المشاركة في الرحلات</p>
+                <button onclick="redirectToRegistration()">التسجيل</button>
+            </div>
+            <div class="event" id="technical">
+                <h2>التحديات التقنية</h2>
+                <div class="image-container">
+                    <img src="tech.avif" alt="Technical Challenges" />
+                </div>
+                <p>اختبر مهاراتك في مختلف التحديات والمسابقات التقنية</p>
+                <button onclick="redirectToRegistration()">التسجيل</button>
+            </div>
+            <div class="event" id="volunteering">
+                <h2>التطوع</h2>
+                <div class="image-container">
+                    <img src="volunteer.avif" alt="Volunteering" />
+                </div>
+                <p>شارك في مجتمعك وأحدث فرقًا من خلال التطوع</p>
+                <button onclick="redirectToRegistration()">التسجيل</button>
+            </div>
+            <div class="event" id="artistic">
+                <h2>الفعاليات الفنية</h2>
+                <div class="image-container">
+                    <img src="art.jpg" alt="Artistic Events" />
+                </div>
+                <p>استعرض إبداعك في الأحداث الفنية مثل الرسم والموسيقى والدراما</p>
+                <button onclick="redirectToRegistration()">التسجيل</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+
+    <script>
+        function redirectToRegistration() {
+            // Redirect to the registration page
+            window.location.href = 'formar.html';
+        }
+    </script>
+</body>
+</html>

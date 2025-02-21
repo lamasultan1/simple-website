@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>activities</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 50px;
+            display: flex;
+        }
+        .main-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+            /*flex-direction: column;*/
+            gap: 15px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        
+        .activity-container {
+            position: relative;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px; /* Set width of square */
+            height: 300px; /* Set height of square */
+            text-align: center;
+        }
+
+        .activity-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .activity-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;  /* Make it fill the width of the container */
+            height: 50%;  /* Fill 75% of the container height */
+            overflow: hidden;  /* Prevent image overflow */
+            transform: translate(-50%, -50%);
+        }
+
+        .activity-image img {
+            width: 100%; /* Ensure image fills the entire width */
+            height: 100%; /* Ensure image fills the entire height */
+            object-fit: cover; /* Maintain aspect ratio while covering */
+            border-radius: 8px; /* Match border radius of the container */
+        }
+
+        .activity-button {
+            background-color: #525452;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 7px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .activity-button:hover {
+            background-color: #434343;
+        
+        }
+        .hidden {
+            display: none;
+        }
+
+        .popup-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .popup h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .popup textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .popup label {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #333;
+        }
+
+        .popup input[type="radio"] {
+            margin: 5px;
+
+        }
+
+        .popup button {
+            background-color: #525452;
+            color: white;
+            padding: 10px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11x;
+            transition: background-color 0.3s;
+            margin: 10px;
+        }
+
+        .popup button:hover {
+            background-color: #434343;
+        }
+
+        .popup .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+        /*.popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 20px;
+            z-index: 100;
+        }
+        .popup-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 99;
+        }*/
+        .close-popup {
+            cursor: pointer;
+            color: #525452;
+        }
+
+        
+
+
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <!--<h2>Select an Activity:</h2>-->
+    <div class="activity-container">
+        <div class="activity-image">
+            <img src="skills.jpg" alt="Skill-Building Workshops">
+        </div>
+        <button class="activity-button" onclick="chooseActivity('Activity 1')">Join Skill-Building Workshops</button>
+    </div>
+    <div class="activity-container">
+        <div class="activity-image">
+            <img src="Tournaments.jpg" alt="Friendly Tournaments">
+        </div>
+        <button class="activity-button" onclick="chooseActivity('Activity 2')">Join Friendly Tournaments</button>
+    </div>
+    <div class="activity-container">
+        <div class="activity-image">
+            <img src="collaborative.jpg" alt="Collaborative Projects">
+        </div>
+        <button class="activity-button" onclick="chooseActivity('Activity 3')">Join Collaborative Projects</button>
+    </div>
+</div>
+
+<script>
+    function chooseActivity(activity) {
+        {
+            ActivityTeams();
+            //favoriteActivitiesPrompt();
+            //shareLocationPrompt();
+        }
+    }
+
+
+     function ActivityTeams() {
+        
+            const popupHtml = `
+            <div class="popup-background"></div>
+            <div class="popup">
+                <h3>Congratulations on joining the activity:<br>
+                choose a team:</h3><br>
+                <label><input type="radio" required>Raid, Mohammed and Abdulrahman<Raid, Mohammed and Abdulrahman/label>
+            <br>
+            <label><input type="radio" required>Laila, Yara and Rawya</label>
+            <br>
+            <button onclick="ActivityTeamsSelected()">Next</button>
+            </div>`;
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
+            
+            //shareLocationPrompt();
+        
+    }
+
+
+   function ActivityTeamsSelected(){
+        closePopups();
+        favoriteActivitiesPrompt();
+   }
+
+//###################################################################################################################################
+//###################################################################################################################################
+//###################################################################################################################################
+    function favoriteActivitiesPrompt() { 
+        const popupHtml = `
+            <div class="popup-background"></div>
+            <div class="popup">
+                <h3>What are your favorite activities in this field?</h3>
+                <textarea id="favoriteActivities" rows="4" style="width: 100%;"></textarea>
+                <button onclick="favoriteActivitiesProvided()">Submit</button>
+            </div>`;
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
+    }
+
+    function favoriteActivitiesProvided() {
+        const activities = document.getElementById('favoriteActivities').value;
+        /*if (!activities.trim()) {
+            alert("Please share your favorite activities.");
+        } else {
+            closePopups();
+            admiresPrompt(); // Proceed to next step after providing favorite activities
+        }*/
+        closePopups();
+        admiresPrompt();
+    }
+
+
+//###################################################################################################################################
+//###################################################################################################################################
+//###################################################################################################################################
+
+function admiresPrompt() {
+        const popupHtml = `
+            <div class="popup-background"></div>
+            <div class="popup">
+                <h3>Who do you admire in this field?</h3>
+                <textarea id="admirePerson" rows="4" style="width: 100%;"></textarea>
+                <button onclick="admirePersonProvided()">Submit</button>
+            </div>`;
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
+    }
+
+    function admirePersonProvided() {
+        const admire = document.getElementById('admirePerson').value;
+        /*if (!admire.trim()) {
+            alert("Please share who you admire.");
+        } else {
+            closePopups();
+            shareLocationPrompt(); // After admiring, prompt for location
+        }*/
+        closePopups();
+        shareLocationPrompt();
+    }
+
+//###################################################################################################################################
+//###################################################################################################################################
+//###################################################################################################################################
+    let shareLocationTime = 0; // Variable to store the time for shareLocationPrompt
+    let rewardTime = 0; // Variable to store the time for rewardPrompt
+    let emergencyTime = 0; // Variable to store the time for emergencyPrompt
+
+
+    function shareLocationPrompt() { //this the pure share location popups
+        const popupHtml = `
+            <div class="popup-background"></div>
+            <div class="popup">
+                <h3>Can you share your location with the group?</h3>
+                <div id="error-message" style="color: red;"></div>
+                <label><input type="radio" name="locationChoice" id="shareLocation" required> Share my location with the group</label>
+                <br>
+                <label><input type="radio" name="locationChoice" id="decline" required> Decline</label>
+                <br>
+                <button id="submitBtn">Submit</button>
+            </div>`;
+
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
+        
+        // Start the timer when the prompt is displayed
+    const startTime = performance.now();  // Capture start time
+
+        // Attach event listener to the button
+    document.getElementById('submitBtn').addEventListener('click', (event) => {
+        handleLocationChoice(event, startTime);
+    });
+    }
+
+//----------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------
+
+    function handleLocationChoice(event,startTime) {
+        event.preventDefault();
+
+        const selectedOption = document.querySelector('input[name="locationChoice"]:checked');
+        const errorMessageDiv = document.getElementById('error-message'); // Get the error message div
+        errorMessageDiv.innerHTML = ''; //initail message before submit
+
+
+    if (!selectedOption) {
+        errorMessageDiv.innerHTML = "Please select an option before submitting.";
+
+    } else {
+        const endTime = performance.now(); // Capture end time
+        shareLocationTime = (endTime - startTime) / 1000; // Calculate elapsed time in seconds
+        
+        
+        const shareLocation = document.getElementById('shareLocation').checked;
+        const decline = document.getElementById('decline').checked;
+        closePopups();
+
+        if (decline) {
+            declineReason(); //this the pure share location popups decline Reason
+        } else if (shareLocation) {
+            alert("Thank you for sharing!");
+        }
+    }
+        
+    }
+
+//----------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------
+
+        function declineReason() { //this the pure share location popups decline Reason
+        const popupHtml = `
+            <div class="popup-background"></div>
+            <div class="popup">
+                <h3>Why don't you want to share your location?</h3>
+                <textarea id="declineReason" rows="4" style="width: 100%;"></textarea>
+                <br>
+         <!----><div id="declineError" style="color: red;"></div> <!-- Error message container -->
+                <button onclick="reasonProvided()">Submit</button>
+
+            </div>`;
+        document.body.insertAdjacentHTML('beforeend', popupHtml);
+    }
+
+//----------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------
+
+    function reasonProvided() { //this the pure share location popups decline Reason it should be saved here
+        const reason = document.getElementById('declineReason').value;
+        const errorMessageDiv = document.getElementById('declineError'); // Error message container
+        errorMessageDiv.innerHTML = ''; // Clear any previous error message
+
+        if (!reason.trim()) {
+        // If textarea is empty, show error message
+        errorMessageDiv.innerHTML = "Please enter your reason.";
+    } else {
+        closePopups();
+        // Save the reason (you can implement the logic to save it here)
+        suggestActivityPrompt();
+    }
+    }
+
+
+
+    function suggestActivityPrompt() {
+    const popupHtml = `
+        <div class="popup-background"></div>
+        <div class="popup">
+            <h3>What activities would you like to be involved in for the future?</h3>
+            <textarea id="suggestedActivity" rows="4" style="width: 100%;"></textarea>
+            <button onclick="suggestActivityProvided()">Submit</button>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+}
+
+function suggestActivityProvided() {
+    const activity = document.getElementById('suggestedActivity').value;
+    /*if (!activity.trim()) {
+        alert("Please share your suggested activities.");
+    } else {
+        closePopups();
+        shareLocationPrompt(); // After suggesting activities, prompt for location
+    }*/
+    closePopups();
+    preferencePrompt();
+    
+}
+//###################################################################################################################################
+//###################################################################################################################################
+//###################################################################################################################################
+
+  function preferencePrompt() {
+    const popupHtml = `
+        <div class="popup-background"></div>
+        <div class="popup">
+            <h3>Do you prefer activities to be online or in person?</h3>
+            <label><input type="radio" name="preferenceChoice" id="online"> Online</label>
+            <br>
+            <label><input type="radio" name="preferenceChoice" id="inPerson"> In person</label>
+            <br>
+            <button onclick="preferenceProvided()">Submit</button>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+}
+
+function preferenceProvided() {
+    const selectedOption = document.querySelector('input[name="preferenceChoice"]:checked');
+        const online = document.getElementById('online').checked;
+        const inPerson = document.getElementById('inPerson').checked;
+        closePopups();
+        rewardPrompt(); 
+}
+
+    
+
+  function rewardPrompt() {
+    const popupHtml = `
+        <div class="popup-background"></div>
+        <div class="popup">
+            <h3>You can help your group to reach the next membership level</h3>
+            <p>Your group is working towards reaching the next membership level. By sharing your location, you can directly contribute to this progress and help your team succeed. Would you like to share your location now?</p>
+            <label><input type="radio" name="locationChoice" id="shareLocationForReward" required> Share my location to help my group</label>
+            <br>
+            <label><input type="radio" name="locationChoice" id="declineForReward" required> No, I prefer not to share</label>
+            <br>
+            <button id="submitBtnReward">Submit</button>
+            <div id="error-message" style="color: red;"></div> <!-- Error message container -->
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+
+    // Start the timer when the prompt is displayed
+    const startTime = performance.now();  // Capture start time
+
+    document.getElementById('submitBtnReward').addEventListener('click', (event) => {
+        handleRewardChoice(event, startTime);
+    });
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+function handleRewardChoice(event, startTime) {
+    const selectedOption = document.querySelector('input[name="locationChoice"]:checked');
+    const errorMessageDiv = document.getElementById('error-message');
+    errorMessageDiv.innerHTML = ''; // Clear previous error message
+
+    if (!selectedOption) {
+        errorMessageDiv.innerHTML = "Please select an option before submitting."; // Display error message
+    } else {
+        const endTime = performance.now(); // Capture end time
+        rewardTime = (endTime - startTime) / 1000; // Calculate elapsed time in seconds
+        
+
+        const shareLocationForReward = document.getElementById('shareLocationForReward').checked;
+        const declineForReward = document.getElementById('declineForReward').checked;
+        closePopups();
+
+        if (declineForReward) {
+            declineReasonForReward(); // Ask for a reason if declined
+        } else if (shareLocationForReward) {
+            alert("Thank you for sharing your location during the reward!");
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+function declineReasonForReward() {
+    const popupHtml = `
+        <div class="popup-background"></div>
+        <div class="popup">
+            <h3>Why don't you want to share your location?</h3>
+            <textarea id="declineReasonForReward" rows="4" style="width: 100%;"></textarea>
+            <br>
+            <div id="declineReasonError" style="color: red;"></div> <!-- Error message container -->
+            <button onclick="reasonProvidedForReward()">Submit</button>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+function reasonProvidedForReward() {
+    const reason = document.getElementById('declineReasonForReward').value;
+    const errorMessageDiv = document.getElementById('declineReasonError');
+    errorMessageDiv.innerHTML = ''; // Clear previous error message
+
+    if (!reason.trim()) {
+        errorMessageDiv.innerHTML = "Please enter your reason."; // Show error if no reason entered
+    } else {
+        closePopups();
+        skillsPrompt();
+        // Save the reason (implementation logic for saving goes here)
+        //shareEmailPrompt();
+
+    }
+}
+
+
+function skillsPrompt() {
+    const popupHtml = `
+        <div class="popup-background"></div>
+        <div class="popup">
+            <h3>What skills do you think you have mastered in the field?</h3>
+            <textarea rows="4" style="width: 100%;"></textarea>
+            <button onclick="skillsProvided()">Submit</button>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+}
+
+function skillsProvided() {
+    closePopups();
+    emergencyPrompt();
+    
+}
+
+
+  
+    function emergencyPrompt() {
+    const popupHtml = `
+        <div class="popup-background"></div>
+        <div class="popup">
+            <h3>A member of your group is in an emergency situation!</h3>
+            <p>Would you like to share your location now?</p>
+            <label><input type="radio" name="locationChoice" id="shareLocationForEmergency" required> Share my location to help my group</label>
+            <br>
+            <label><input type="radio" name="locationChoice" id="declineForEmergency" required> No, I prefer not to share</label>
+            <br>
+            <button id="submitBtnEmergency">Submit</button>
+            <div id="error-message" style="color: red;"></div> <!-- Error message container -->
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+
+    // Start the timer when the prompt is displayed
+    const startTime = performance.now();  // Capture start time
+
+    document.getElementById('submitBtnEmergency').addEventListener('click', (event) => {
+        handleEmergencyChoice(event, startTime);
+    });
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+function handleEmergencyChoice(event, startTime) {
+    const selectedOption = document.querySelector('input[name="locationChoice"]:checked');
+    const errorMessageDiv = document.getElementById('error-message');
+    errorMessageDiv.innerHTML = ''; // Clear previous error message
+
+    if (!selectedOption) {
+        errorMessageDiv.innerHTML = "Please select an option before submitting."; // Display error message
+    } else {
+        const endTime = performance.now(); // Capture end time
+        emergencyTime = (endTime - startTime) / 1000; // Calculate elapsed time in seconds
+        
+
+        const shareLocationForEmergency = document.getElementById('shareLocationForEmergency').checked;
+        const declineForEmergency = document.getElementById('declineForEmergency').checked;
+        closePopups();
+
+        if (declineForEmergency) {
+            declineReasonForEmergency(); // Ask for a reason if declined
+        } else if (shareLocationForEmergency) {
+            alert("Thank you for sharing your location during the emergency!");
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+function declineReasonForEmergency() {
+    const popupHtml = `
+        <div class="popup-background"></div>
+        <div class="popup">
+            <h3>Why don't you want to share your location?</h3>
+            <textarea id="declineReasonForEmergency" rows="4" style="width: 100%;"></textarea>
+            <br>
+            <div id="declineReasonError" style="color: red;"></div> <!-- Error message container -->
+            <button onclick="reasonProvidedForEmergency()">Submit</button>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+function reasonProvidedForEmergency() {
+    const reason = document.getElementById('declineReasonForEmergency').value;
+    const errorMessageDiv = document.getElementById('declineReasonError');
+    errorMessageDiv.innerHTML = ''; // Clear previous error message
+
+    if (!reason.trim()) {
+        errorMessageDiv.innerHTML = "Please enter your reason."; // Show error if no reason entered
+    } else {
+        closePopups();
+        // Save the reason (implementation logic for saving goes here)
+        alert("Thank you!");
+    }
+}
+
+
+//###################################################################################################################################
+//###################################################################################################################################
+//###################################################################################################################################
+  
+
+    function closePopups() {
+        const popups = document.querySelectorAll('.popup-background, .popup');
+        popups.forEach(popup => popup.remove());
+    }
+
+</script>
+
+</body>
+</html>
