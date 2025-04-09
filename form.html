@@ -141,7 +141,7 @@
 
 <script>
     var map = L.map('map').setView([51.505, -0.09], 13);
-    var userLocation; //hold user-selected location
+    var userLocation; // hold user-selected location
 
     // Load and display tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -224,7 +224,7 @@
         };
 
         // Send data to Google Sheets via the Apps Script web app
-        fetch('https://script.google.com/macros/s/AKfycbx-3YOJ5YK4d9nVXgI4pn5YCKaD2VyDbQKOFDLPIOK0_VvSv21AgdABaZUkXwVu9bXd/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbyN7vchNFjWm4PY_UrP0OKBj0jPPjBhN4YA5Y7j09lE8pNI8fnv4TOGCX2fNzhfMLsv/exec', { // Replace with your actual URL
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
