@@ -226,6 +226,7 @@
         // Send data to Google Sheets via the Apps Script web app
         fetch('https://script.google.com/macros/s/AKfycbzrE6lZtOjQcpurbryJr-8v-PFDP4KNrhBu3twVGeSel-xZszqcNdMjOO4jLCX__ZWWnw/exec', { // Replace with your actual URL
             method: 'POST',
+            redirect: "follow",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
