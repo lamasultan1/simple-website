@@ -194,7 +194,7 @@
 
 <script>
     var map = L.map('map').setView([51.505, -0.09], 13);
-    var userLocation; //hold user-selected location
+    var userLocation; // hold user-selected location
 
     // Load and display tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -204,14 +204,14 @@
 
     // Marker
     var marker = L.marker([51.505, -0.09]).addTo(map)
-        .bindPopup('You are here!')
+        .bindPopup('أنت هنا!')
         .openPopup();
 
     // Event to allow user to click on the map to set the marker location
     map.on('click', function(e) {
         const latLng = e.latlng;
         marker.setLatLng(latLng);
-        marker.bindPopup('You selected this location: ' + latLng.toString()).openPopup();
+        marker.bindPopup('لقد اخترت هذا الموقع: ' + latLng.toString()).openPopup();
         userLocation = latLng;
     });
 
@@ -219,7 +219,6 @@
     document.getElementById("countrySelect").addEventListener("change", function() {
         const selectedCountry = this.value;
 
-        
         let lat, lng;
 
         switch (selectedCountry) {
@@ -246,32 +245,56 @@
         map.setView([lat, lng], 5);
     });
 
-
-    let fileCounter = 0; // A counter to keep track of the number of files downloaded
-
     function submitForm() {
-        window.location.href = 'scenariosar.html';
-        console.log({
-            firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value,
-            idNumber: document.getElementById('idNumber').value,
-            email: document.getElementById('email').value,
-            mobileNumber: document.getElementById('mobileNumber').value,
-            country: document.getElementById('countrySelect').value,
-            city: document.getElementById('city').value,
-            deliveryDate: document.getElementById('deliveryDate').value,
-            deliveryTime: document.getElementById('deliveryTime').value,
-            paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
-            creditCardNumber: document.getElementById('creditCardNumber').value,
-            expirationDate: document.getElementById('expirationDate').value,
-            zipCode: document.getElementById('zipCode').value,
-            locationSearch: document.getElementById('locationSearch').value,
-            streetName: document.getElementById('streetName').value,
-            buildingNumber: document.getElementById('buildingNumber').value,
-            hood: document.getElementById('hood').value,
-            userLocation: userLocation // Save the user selected location in the form submission
-        });
-        
+        console.log("Submit function called"); // Debugging line
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const idNumber = document.getElementById('idNumber').value;
+        const email = document.getElementById('email').value;
+        const mobileNumber = document.getElementById('mobileNumber').value;
+        const selectedCountry = document.getElementById('countrySelect').value;
+        const city = document.getElementById('city').value;
+        const address = document.getElementById('Address').value; // National Address
+        const neighborhood = document.getElementById('Neighborhood').value; // Neighborhood Name
+        const streetName = document.getElementById('streetName').value; // Street Name
+        const buildingNumber = document.getElementById('buildingNumber').value; // Building Number
+        const userLocationValue = userLocation ? userLocation.toString() : ''; // Convert to string if defined
+
+        // Create an object to hold the data
+        const data = {
+            firstName,
+            lastName,
+            idNumber,
+            email,
+            mobileNumber,
+            selectedCountry,
+            city,
+            address,
+            neighborhood,
+            streetName,
+            buildingNumber,
+            userLocation: userLocationValue
+        };
+
+        // Send data to Google Sheets via the Apps Script web app
+        fetch('https://script.google.com/macros/s/AKfycbwI8bxPk0xrlIRuh-SjbeVbFXmZk16dhi8yANClC5YM-pcz6KO_bKQbN0lnM-roT1tK/exec', {
+            method: 'POST',
+            redirect: "follow",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'no-cors' 
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log(result); // Log the response from the server
+            // Redirect to scenarios page after a short delay to ensure data is saved
+            setTimeout(() => {
+                window.location.href = 'scenariosAr.html'; // Redirect to the Arabic scenarios page
+            }, 1000); // Adjust the delay as needed
+        })
+        .catch(error => console.error('Error:', error));
     }
 </script>
 
