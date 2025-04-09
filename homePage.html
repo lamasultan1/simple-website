@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Event Registration</h1>
+        <p>Select an event to register for:</p>
+    </header>
+    <main>
+        <div class="event-container">
+            <div class="event" id="sports">
+                <h2>Sports Events</h2>
+                <div class="image-container">
+                    <img src="sport.avif" alt="Sports Events" />
+                </div>
+                <p>Join sports events including football, basketball, and tennis.</p>
+                <button onclick="redirectToRegistration()">Register</button>
+            </div>
+            <div class="event" id="study">
+                <h2>Study Groups</h2>
+                <div class="image-container">
+                    <img src="study.avif" alt="Study Groups" />
+                </div>
+                <p>Participate in study groups for various subjects and improve your knowledge.</p>
+                <button onclick="redirectToRegistration()">Register</button>
+            </div>
+            <div class="event" id="reading">
+                <h2>Reading Club</h2>
+                <div class="image-container">
+                    <img src="reading.jpg" alt="Reading Club" />
+                </div>
+                <p>Join our reading club and discuss your favorite books and genres.</p>
+                <button onclick="redirectToRegistration()">Register</button>
+            </div>
+            <div class="event" id="trips">
+                <h2>Trips</h2>
+                <div class="image-container">
+                    <img src="trips.avif" alt="Trips" />
+                </div>
+                <p>Explore new places and cultures by participating in exciting trips.</p>
+                <button onclick="redirectToRegistration()">Register</button>
+            </div>
+            <div class="event" id="technical">
+                <h2>Technical Challenges</h2>
+                <div class="image-container">
+                    <img src="tech.avif" alt="Technical Challenges" />
+                </div>
+                <p>Test your skills in various technical challenges and competitions.</p>
+                <button onclick="redirectToRegistration()">Register</button>
+            </div>
+            <div class="event" id="volunteering">
+                <h2>Volunteering</h2>
+                <div class="image-container">
+                    <img src="volunteer.avif" alt="Volunteering" />
+                </div>
+                <p>Get involved in your community and make a difference through volunteering.</p>
+                <button onclick="redirectToRegistration()">Register</button>
+            </div>
+            <div class="event" id="artistic">
+                <h2>Artistic Events</h2>
+                <div class="image-container">
+                    <img src="art.jpg" alt="Artistic Events" />
+                </div>
+                <p>Showcase your creativity in artistic events like painting, music, and drama.</p>
+                <button onclick="redirectToRegistration()">Register</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+
+    <script>
+        function redirectToRegistration() {
+            // Redirect to the registration page
+            window.location.href = 'form.html';
+        }
+    </script>
+</body>
+</html>
