@@ -224,7 +224,7 @@
         };
 
         // Send data to Google Sheets via the Apps Script web app
-        fetch('https://script.google.com/macros/s/AKfycbzrE6lZtOjQcpurbryJr-8v-PFDP4KNrhBu3twVGeSel-xZszqcNdMjOO4jLCX__ZWWnw/exec', { // Replace with your actual URL
+        fetch('http://cors.io/?https://script.google.com/macros/s/AKfycbz6RBkV8qfhcTrqEwNu4ehXiwQWXv9Y5wUR6ZuvMsw3fbe3rwq-lsNK1s3181AYkaQ/exec', { // Replace with your actual URL
             method: 'POST',
             redirect: "follow",
             body: JSON.stringify(data),
