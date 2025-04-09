@@ -230,7 +230,8 @@
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            mode: 'no-cors' 
         })
         .then(response => response.text())
         .then(result => {
