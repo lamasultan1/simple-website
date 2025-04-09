@@ -326,6 +326,19 @@ function admiresPrompt() {
 //----------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------
+    function sendDataToGoogleAppsScript(data) {
+    fetch('https://script.google.com/macros/s/AKfycbwXQFwMqrdGbMJEcb27QUD-YGac7d1gFhkjSCxaEpZvElgkyXbjILODfk5jm8q27RHY/exec', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'no-cors' 
+    })
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.error('Error:', error));
+}
 
     function handleLocationChoice(event,startTime) {
         event.preventDefault();
@@ -627,6 +640,106 @@ function reasonProvidedForEmergency() {
         alert("Thank you!");
     }
 }
+
+function sendDataToGoogleAppsScript(data) {
+    fetch('https://script.google.com/macros/s/YOUR_DEPLOYED_URL/exec', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.error('Error:', error));
+}
+
+function favoriteActivitiesProvided() {
+    const activities = document.getElementById('favoriteActivities').value;
+    closePopups();
+    // Send data to Google Apps Script
+    sendDataToGoogleAppsScript({ favoriteActivities: activities });
+    admiresPrompt();
+}
+
+function admirePersonProvided() {
+    const admire = document.getElementById('admirePerson').value;
+    closePopups();
+    // Send data to Google Apps Script
+    sendDataToGoogleAppsScript({ admirePerson: admire });
+    shareLocationPrompt();
+}
+
+function reasonProvided() {
+    const reason = document.getElementById('declineReason').value;
+    const errorMessageDiv = document.getElementById('declineError');
+    errorMessageDiv.innerHTML = '';
+
+    if (!reason.trim()) {
+        errorMessageDiv.innerHTML = "Please enter your reason.";
+    } else {
+        closePopups();
+        // Send data to Google Apps Script
+        sendDataToGoogleAppsScript({ declineReason: reason });
+        suggestActivityPrompt();
+    }
+}
+
+function suggestActivityProvided() {
+    const activity = document.getElementById('suggestedActivity').value;
+    closePopups();
+    // Send data to Google Apps Script
+    sendDataToGoogleAppsScript({ suggestedActivity: activity });
+    preferencePrompt();
+}
+
+function preferenceProvided() {
+    const online = document.getElementById('online').checked;
+    const inPerson = document.getElementById('inPerson').checked;
+    closePopups();
+    // Send data to Google Apps Script
+    sendDataToGoogleAppsScript({ preference: online ? 'Online' : 'In person' });
+    rewardPrompt();
+}
+
+function reasonProvidedForReward() {
+    const reason = document.getElementById('declineReasonForReward').value;
+    const errorMessageDiv = document.getElementById('declineReasonError');
+    errorMessageDiv.innerHTML = '';
+
+    if (!reason.trim()) {
+        errorMessageDiv.innerHTML = "Please enter your reason.";
+    } else {
+        closePopups();
+        // Send data to Google Apps Script
+        sendDataToGoogleAppsScript({ declineReasonForReward: reason });
+        skillsPrompt();
+    }
+}
+
+function skillsProvided() {
+    const skills = document.querySelector('textarea').value; // Assuming the textarea is for skills
+    closePopups();
+    // Send data to Google Apps Script
+    sendDataToGoogleAppsScript({ skills: skills });
+    emergencyPrompt();
+}
+
+function reasonProvidedForEmergency() {
+    const reason = document.getElementById('declineReasonForEmergency').value;
+    const errorMessageDiv = document.getElementById('declineReasonError');
+    errorMessageDiv.innerHTML = '';
+
+    if (!reason.trim()) {
+        errorMessageDiv.innerHTML = "Please enter your reason.";
+    } else {
+        closePopups();
+        // Send data to Google Apps Script
+        sendDataToGoogleAppsScript({ declineReasonForEmergency: reason });
+        alert("Thank you!");
+    }
+}
+
 
 
 //###################################################################################################################################
